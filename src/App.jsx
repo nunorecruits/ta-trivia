@@ -289,18 +289,28 @@ export default function App() {
     setScreen("leaderboard");
   }
 
-  async function fetchInsight(q, idx) {
-    if (insights[idx]) return; setLoadingIns(idx);
-    try {
-      const res = await fetch("https://api.anthropic.com/v1/messages",{
-        method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({model:"claude-sonnet-4-5",max_tokens:400,messages:[{role:"user",content:`A TA professional answered this trivia question incorrectly. Give a clear, practical educational insight (3-5 sentences) explaining the correct answer and why it matters in real TA practice.\n\nQuestion: ${q.question}\nCorrect answer: ${q.options[q.correct]}\nTheir wrong answer: ${q.options[q.userAnswer]??"Timed out"}\n\nPlain text only.`}]})
-      });
-      const d = await res.json();
-      setInsights(p => ({...p,[idx]:d.content?.map(b=>b.text||"").join("")||"Could not load."}));
-    } catch { setInsights(p => ({...p,[idx]:"Could not load insight."})); }
-    setLoadingIns(null);
+async function fetchInsight(q, idx) {
+  if (insights[idx]) return;
+  setLoadingIns(idx);
+  try {
+    const res = await fetch("/api/insight", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: [{
+          role: "user",
+          content: `A TA professional answered this trivia question incorrectly. Give a clear, practical educational insight (3-5 sentences) explaining the correct answer and why it matters in real TA practice.\n\nQuestion: ${q.question}\nCorrect answer: ${q.options[q.correct]}\nTheir wrong answer: ${q.options[q.userAnswer] ?? "Timed out"}\n\nPlain text only.`
+        }]
+      })
+    });
+    const d = await res.json();
+    const text = d.choices?.[0]?.message?.content || "Could not load.";
+    setInsights(p => ({ ...p, [idx]: text }));
+  } catch {
+    setInsights(p => ({ ...p, [idx]: "Could not load insight." }));
   }
+  setLoadingIns(null);
+}
 
   function startBonus() {
     bonusPos.current = SQ_SPOTS[Math.floor(Math.random()*SQ_SPOTS.length)];
