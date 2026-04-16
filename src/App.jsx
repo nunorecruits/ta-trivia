@@ -247,6 +247,19 @@ export default function App() {
     return () => clearInterval(bonusRef.current);
   }, [screen, bonusFound, bonusExpired]);
 
+  useEffect(() => {
+  async function loadLeaderboard() {
+    const { createClient } = await import("@supabase/supabase-js");
+    const supabase = createClient(
+      import.meta.env.VITE_SUPABASE_URL,
+      import.meta.env.VITE_SUPABASE_ANON_KEY
+    );
+    const { data } = await supabase.from("scores").select("*").order("score", { ascending: false }).limit(10);
+    if (data) setLb(data);
+  }
+  loadLeaderboard();
+}, []);
+
   function startGame(catId) {
     setCat(catId); setQuestions(getQuestions(catId)); setQi(0); setScore(0);
     setStreak(0); setMaxStreak(0); setTimeLeft(45); setAnswered(false);
@@ -283,11 +296,20 @@ export default function App() {
     setTimeLeft(45); setRoast(""); setStreakMsg(""); setOptAnim(null);
   }
 
-  function submitScore() {
-    const name = nameInput.trim()||"Anonymous"; setPlayerName(name);
-    setLb(prev => [...prev,{name,score,title:getTitle(score),cat:catObj?.label,streak:maxStreak}].sort((a,b)=>b.score-a.score).slice(0,10));
-    setScreen("leaderboard");
-  }
+async function submitScore() {
+  const name = nameInput.trim() || "Anonymous";
+  setPlayerName(name);
+  const entry = { name, score, title: getTitle(score), category: catObj?.label, streak: maxStreak };
+  const { createClient } = await import("@supabase/supabase-js");
+  const supabase = createClient(
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_SUPABASE_ANON_KEY
+  );
+  await supabase.from("scores").insert(entry);
+  const { data } = await supabase.from("scores").select("*").order("score", { ascending: false }).limit(10);
+  setLb(data || []);
+  setScreen("leaderboard");
+}
 
 async function fetchInsight(q, idx) {
   if (insights[idx]) return;
