@@ -1,4 +1,9 @@
 import { useState, useEffect, useRef } from "react";
+import { createClient } from "@supabase/supabase-js";
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 const ROASTS = [
   "Yikes. Did you guess with your eyes closed? 👀",
@@ -247,13 +252,8 @@ export default function App() {
     return () => clearInterval(bonusRef.current);
   }, [screen, bonusFound, bonusExpired]);
 
-  useEffect(() => {
+useEffect(() => {
   async function loadLeaderboard() {
-    const { createClient } = await import("@supabase/supabase-js");
-    const supabase = createClient(
-      import.meta.env.VITE_SUPABASE_URL,
-      import.meta.env.VITE_SUPABASE_ANON_KEY
-    );
     const { data } = await supabase.from("scores").select("*").order("score", { ascending: false }).limit(10);
     if (data) setLb(data);
   }
@@ -300,11 +300,6 @@ async function submitScore() {
   const name = nameInput.trim() || "Anonymous";
   setPlayerName(name);
   const entry = { name, score, title: getTitle(score), category: catObj?.label, streak: maxStreak };
-  const { createClient } = await import("@supabase/supabase-js");
-  const supabase = createClient(
-    import.meta.env.VITE_SUPABASE_URL,
-    import.meta.env.VITE_SUPABASE_ANON_KEY
-  );
   await supabase.from("scores").insert(entry);
   const { data } = await supabase.from("scores").select("*").order("score", { ascending: false }).limit(10);
   setLb(data || []);
