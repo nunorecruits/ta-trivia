@@ -285,7 +285,7 @@ useEffect(() => {
       const msgs = {3:"3 in a row! 🔥",5:"5 streak! We see you. 👀",7:"7 in a row! 📖",10:"PERFECT ROUND. Talent Titan. 🏆"};
       setStreakMsg(msgs[ns]||"");
       if (!correct) setRoast(getRoast(timedOut));
-      setResults(r => [...r, {...q, userAnswer:idx, correct, gained, timedOut}]);
+setResults(r => [...r, {...q, userAnswer:idx, correct, gained, timedOut, correctText:q.options[q.correct], userText:idx!==null?q.options[idx]:"Timed out"}]);
       setOptAnim(null);
     }, 380);
   }
@@ -441,7 +441,7 @@ background:musicOn?"#4c1d95":"#7c3aed",
           <div style={{textAlign:"center",marginBottom:"2.5rem",paddingTop:"1rem"}}>
             <div style={{fontSize:13,fontWeight:700,letterSpacing:".2em",textTransform:"uppercase",color:"#818cf8",marginBottom:".5rem"}}>Welcome to</div>
 <h1 className="neon-title" style={{fontSize:28,fontWeight:900,margin:"0 0 .4rem",lineHeight:1.15,whiteSpace:"nowrap"}}>Talent Acquisition Trivia</h1>
-            <p style={{fontSize:14,color:"#94a3b8",margin:"0 0 .1rem"}}>10 questions · 45 seconds each · TA professionals only</p>
+            <p style={{fontSize:14,color:"#94a3b8",margin:"0 0 .1rem"}}>10 questions · 45 seconds each · Can you get to the top of the Leaderboard? </p>
           </div>
 
           <p style={{fontSize:11,fontWeight:700,letterSpacing:".14em",textTransform:"uppercase",color:"#475569",marginBottom:4,paddingLeft:4}}>Pick a category</p>
@@ -607,10 +607,10 @@ background:musicOn?"#4c1d95":"#7c3aed",
                   <div style={{flex:1}}>
                     <div style={{fontSize:13,fontWeight:600,color:"#e2e8f0",marginBottom:3,lineHeight:1.4}}>{r.question}</div>
                     {r.correct
-                      ? <div style={{fontSize:12,color:"#4ade80"}}>{r.options[r.correct]}</div>
+                      ? <div style={{fontSize:12,color:"#4ade80"}}>{r.correctText}</div>
                       : <>
-                          <div style={{fontSize:12,color:"#f87171",marginBottom:2}}>You chose: {r.options[r.userAnswer]??"Timed out"}</div>
-                          <div style={{fontSize:12,color:"#4ade80",marginBottom:6}}>Correct: {r.options[r.correct]}</div>
+                          <div style={{fontSize:12,color:"#f87171",marginBottom:2}}>You chose: {r.userText}</div>
+                          <div style={{fontSize:12,color:"#4ade80",marginBottom:6}}>Correct: {r.correctText}</div>
                           {!insights[i] && <button onClick={()=>fetchInsight(r,i)} disabled={loadingIns===i} style={{fontSize:12,padding:"4px 12px",borderRadius:8,border:`1px solid ${accent}55`,background:"transparent",color:accent,cursor:"pointer",fontFamily:"inherit"}}>{loadingIns===i?"Loading...":"Why does this matter? →"}</button>}
                           {insights[i] && <div style={{borderRadius:10,padding:"10px 12px",background:accent+"18",border:`1px solid ${accent}30`,marginTop:6}}><div style={{fontSize:10,fontWeight:700,textTransform:"uppercase",letterSpacing:".08em",color:accent,marginBottom:4}}>Educational insight</div><div style={{fontSize:12,color:"#cbd5e1",lineHeight:1.6}}>{insights[i]}</div></div>}
                         </>
