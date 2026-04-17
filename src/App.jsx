@@ -204,25 +204,43 @@ function playCorrect() { tone(528,"sine",0.18,0.08); tone(660,"sine",0.22,0.07,0
   function playWrong()   { tone(300,"sine",0.2,0.06); tone(260,"sine",0.3,0.05,0.18); }
   function playFound()   { [396,528,660,792,1056].forEach((f,i) => tone(f,"sine",0.4,0.07,i*0.18)); }
 
-  function startMusic() {
+function startMusic() {
     try {
       const ctx = getCtx();
       if (bgGain.current) return;
-      const master = ctx.createGain(); master.gain.value = 0.028; master.connect(ctx.destination);
+      const master = ctx.createGain(); master.gain.value = 0.018; master.connect(ctx.destination);
       bgGain.current = master;
-   const pat = [330,370,415,440,370,330,294,330];
-      let step = 0;
-      function beat() {
-        const o = ctx.createOscillator(); const g = ctx.createGain();
-        o.connect(g); g.connect(master); o.type = "triangle";
-        o.frequency.value = pat[step % pat.length];
-        g.gain.setValueAtTime(0.6, ctx.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.32);
-        o.start(); o.stop(ctx.currentTime + 0.32);
-        step++;
-        bgTimers.current.push(setTimeout(beat, 420));
+
+      function playPad(freq, delay) {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+        filter.type = "lowpass";
+        filter.frequency.value = 800;
+        o.connect(filter); filter.connect(g); g.connect(master);
+        o.type = "sine";
+        o.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+        o.frequency.linearRampToValueAtTime(freq * 1.002, ctx.currentTime + delay + 6);
+        g.gain.setValueAtTime(0, ctx.currentTime + delay);
+        g.gain.linearRampToValueAtTime(0.3, ctx.currentTime + delay + 3);
+        g.gain.linearRampToValueAtTime(0, ctx.currentTime + delay + 9);
+        o.start(ctx.currentTime + delay);
+        o.stop(ctx.currentTime + delay + 10);
       }
-      beat();
+
+      function playChord() {
+        const chords = [
+          [130.8, 164.8, 196, 246.9],
+          [138.6, 174.6, 207.7, 261.6],
+          [123.5, 155.6, 185, 233.1],
+          [146.8, 185, 220, 277.2],
+        ];
+        const chord = chords[Math.floor(Math.random() * chords.length)];
+        chord.forEach((freq, i) => playPad(freq, i * 0.8));
+        bgTimers.current.push(setTimeout(playChord, 10000));
+      }
+
+      playChord();
     } catch(e) {}
   }
   function stopMusic() {
