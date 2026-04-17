@@ -200,17 +200,17 @@ export default function App() {
       o.start(t); o.stop(t+dur);
     } catch(e) {}
   }
-  function playCorrect() { tone(523,"sine",0.12,0.2); tone(659,"sine",0.12,0.2,0.1); tone(784,"sine",0.2,0.2,0.2); }
-  function playWrong()   { tone(220,"sawtooth",0.25,0.15); tone(180,"sawtooth",0.3,0.12,0.2); }
-  function playFound()   { [523,659,784,1047].forEach((f,i) => tone(f,"sine",0.3,0.22,i*0.12)); }
+function playCorrect() { tone(528,"sine",0.18,0.08); tone(660,"sine",0.22,0.07,0.15); tone(792,"sine",0.28,0.06,0.3); }
+  function playWrong()   { tone(300,"sine",0.2,0.06); tone(260,"sine",0.3,0.05,0.18); }
+  function playFound()   { [396,528,660,792,1056].forEach((f,i) => tone(f,"sine",0.4,0.07,i*0.18)); }
 
   function startMusic() {
     try {
       const ctx = getCtx();
       if (bgGain.current) return;
-      const master = ctx.createGain(); master.gain.value = 0.055; master.connect(ctx.destination);
+      const master = ctx.createGain(); master.gain.value = 0.028; master.connect(ctx.destination);
       bgGain.current = master;
-      const pat = [262,294,330,349,392,349,330,294];
+   const pat = [330,370,415,440,370,330,294,330];
       let step = 0;
       function beat() {
         const o = ctx.createOscillator(); const g = ctx.createGain();
