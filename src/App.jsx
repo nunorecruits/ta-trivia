@@ -467,7 +467,7 @@ background:musicOn?"#4c1d95":"#7c3aed",
                   <span style={{fontSize:15,minWidth:24,textAlign:"center"}}>{i===0?"🥇":i===1?"🥈":i===2?"🥉":`${i+1}.`}</span>
                   <div style={{flex:1}}>
                     <div style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>{e.name}</div>
-                    <div style={{fontSize:11,color:"#64748b"}}>{e.title} · {e.cat}</div>
+                    <div style={{fontSize:11,color:"#64748b"}}>{e.title} · {e.category}</div>
                   </div>
                   <span style={{fontSize:14,fontWeight:800,color:"#a78bfa"}}>{e.score.toLocaleString()}</span>
                 </div>
@@ -746,7 +746,7 @@ background:musicOn?"#4c1d95":"#7c3aed",
                 <span style={{fontSize:17,minWidth:28,textAlign:"center"}}>{i===0?"🥇":i===1?"🥈":i===2?"🥉":<span style={{fontSize:13,color:"#475569"}}>{i+1}</span>}</span>
                 <div style={{flex:1}}>
                   <div style={{fontSize:14,fontWeight:700,color:"#e2e8f0"}}>{e.name}</div>
-                  <div style={{fontSize:11,color:"#64748b"}}>{e.title} · {e.cat}</div>
+                  <div style={{fontSize:11,color:"#64748b"}}>{e.title} · {e.category}</div>
                 </div>
                 <span style={{fontSize:15,fontWeight:900,color:"#a78bfa"}}>{e.score.toLocaleString()}</span>
               </div>
