@@ -491,7 +491,7 @@ background:musicOn?"#4c1d95":"#7c3aed",
           {lb.length > 0 && (
             <div style={{borderRadius:16,padding:"1.25rem",background:"#1e1b2e",border:"1px solid #2d2b45"}}>
               <p style={{fontSize:11,fontWeight:700,letterSpacing:".14em",textTransform:"uppercase",color:"#475569",margin:"0 0 12px"}}>Leaderboard</p>
-              {lb.slice(0,5).map((e,i) => (
+              {lb.map((e,i) => (
                 <div key={i} style={{display:"flex",alignItems:"center",gap:12,padding:"8px 0",borderBottom:i<Math.min(lb.length,5)-1?"1px solid #2d2b45":"none"}}>
                   <span style={{fontSize:15,minWidth:24,textAlign:"center"}}>{i===0?"🥇":i===1?"🥈":i===2?"🥉":`${i+1}.`}</span>
                   <div style={{flex:1}}>
@@ -627,7 +627,7 @@ background:musicOn?"#4c1d95":"#7c3aed",
             </div>
           </div>
 
-          <div style={{borderRadius:16,padding:"1.25rem",background:"#1e1b2e",border:"1px solid #2d2b45",marginBottom:"1.25rem"}}>
+<div style={{borderRadius:16,padding:"1.25rem",background:"#1e1b2e",border:"1px solid #2d2b45",marginBottom:"1.25rem"}}>
             <p style={{fontSize:11,fontWeight:700,letterSpacing:".14em",textTransform:"uppercase",color:"#475569",margin:"0 0 12px"}}>Question review</p>
             {results.map((r,i)=>(
               <div key={i} style={{padding:"10px 0",borderBottom:i<results.length-1?"1px solid #2d2b45":"none"}}>
