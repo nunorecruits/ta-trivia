@@ -122,12 +122,12 @@ function getQuestions(catId) {
   return [...byD.foundational.slice(0,3), ...byD.practitioner.slice(0,4), ...byD.strategic.slice(0,3)].slice(0,10).map(prepareQ);
 }
 
-const STARS = Array.from({length:28}, (_,i) => ({
+const STARS = Array.from({length:150}, (_,i) => ({
   id:i, x:Math.round(Math.random()*98)+1, y:Math.round(Math.random()*98)+1,
-  size: i%5===0?3:i%3===0?2:1,
-  dur: 3+Math.round(Math.random()*4),
-  delay: Math.round(Math.random()*6),
-  op: 0.15+Math.round(Math.random()*5)/10,
+  size: i%20===0?4:i%7===0?3:i%3===0?2:1,
+  dur: 2+Math.round(Math.random()*6),
+  delay: Math.round(Math.random()*8),
+  op: 0.2+Math.round(Math.random()*7)/10,
 }));
 
 const CANVAS_W = 520, CANVAS_H = 380, SQ_SIZE = 26;
@@ -417,20 +417,19 @@ const css = `
           <div key={s.id} style={{
             position:"absolute",left:`${s.x}%`,top:`${s.y}%`,
             width:s.size,height:s.size,borderRadius:"50%",
-            background:`rgba(167,139,250,${s.op})`,
+           background:s.id%5===0?`rgba(167,139,250,${s.op})`:s.id%4===0?`rgba(244,114,182,${s.op})`:s.id%3===0?`rgba(255,255,255,${s.op})`:s.id%2===0?`rgba(56,189,248,${s.op})`:`rgba(251,146,60,${s.op})`,
             animation:`star-drift ${s.dur}s ${s.delay}s ease-in-out infinite`,
           }}/>
         ))}
       </div>
 
-      <div className="float-obj a"/><div className="float-obj b"/><div className="float-obj c"/><div className="float-obj d"/><div className="float-obj e"/>
       {/* music toggle */}
       <button onClick={toggleMusic} style={{
         position:"fixed",top:14,right:14,zIndex:200,
-        background:musicOn?"#4c1d95":"#1e1b2e",
-        border:`1px solid ${musicOn?"#7c3aed":"#2d2b45"}`,
-        borderRadius:99,padding:"6px 14px",cursor:"pointer",
-        fontSize:12,fontWeight:700,color:musicOn?"#e9d5ff":"#64748b",
+background:musicOn?"#4c1d95":"#7c3aed",
+        border:`2px solid ${musicOn?"#a78bfa":"#a78bfa"}`,
+        borderRadius:99,padding:"8px 18px",cursor:"pointer",
+        fontSize:13,fontWeight:800,color:"#fff",
         fontFamily:"inherit",transition:"all .2s",
       }}>
         {musicOn?"♪ On":"♪ Off"}
@@ -441,7 +440,7 @@ const css = `
 <div className="se" style={{maxWidth:680,margin:"0 auto",padding:"2rem 1.5rem 4rem",position:"relative",zIndex:1}}>
           <div style={{textAlign:"center",marginBottom:"2.5rem",paddingTop:"1rem"}}>
             <div style={{fontSize:13,fontWeight:700,letterSpacing:".2em",textTransform:"uppercase",color:"#818cf8",marginBottom:".5rem"}}>Welcome to</div>
-        <h1 style={{fontSize:32,fontWeight:900,margin:"0 0 .4rem",background:"linear-gradient(135deg,#a78bfa,#f472b6,#fb923c)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",lineHeight:1.15}}>Talent Acquisition<br/>Trivia</h1>
+<h1 className="neon-title" style={{fontSize:28,fontWeight:900,margin:"0 0 .4rem",lineHeight:1.15,whiteSpace:"nowrap"}}>Talent Acquisition Trivia</h1>
             <p style={{fontSize:14,color:"#94a3b8",margin:"0 0 .1rem"}}>10 questions · 45 seconds each · TA professionals only</p>
           </div>
 
@@ -627,7 +626,7 @@ const css = `
             <p style={{fontSize:11,fontWeight:700,letterSpacing:".14em",textTransform:"uppercase",color:"#475569",margin:"0 0 10px"}}>Submit to leaderboard</p>
             <div style={{display:"flex",gap:8}}>
               <input value={nameInput} onChange={e=>setNameInput(e.target.value)} placeholder="Your name"
-                style={{flex:1,padding:"10px 14px",borderRadius:10,border:"1px solid #2d2b45",background:"#0f0f1a",color:"#f1f5f9",fontSize:14,outline:"none",fontFamily:"inherit"}}/>
+                style={{flex:1,padding:"10px 14px",borderRadius:10,border:"1px solid #2d2b45",background:"#0f0f1a",minHeight:"100vh",width:"100%",color:"#fff",position:"relative",overflow:"hidden"}}/>
               <button onClick={submitScore} style={{padding:"10px 16px",borderRadius:10,border:"none",fontSize:14,fontWeight:700,cursor:"pointer",color:"#fff",background:`linear-gradient(135deg,${accent},${accentG})`,fontFamily:"inherit",whiteSpace:"nowrap"}}>Submit</button>
             </div>
           </div>
