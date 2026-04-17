@@ -625,8 +625,8 @@ background:musicOn?"#4c1d95":"#7c3aed",
           <div style={{borderRadius:16,padding:"1.25rem",background:"#1e1b2e",border:"1px solid #2d2b45",marginBottom:"1rem"}}>
             <p style={{fontSize:11,fontWeight:700,letterSpacing:".14em",textTransform:"uppercase",color:"#475569",margin:"0 0 10px"}}>Submit to leaderboard</p>
             <div style={{display:"flex",gap:8}}>
-              <input value={nameInput} onChange={e=>setNameInput(e.target.value)} placeholder="Your name"
-                style={{flex:1,padding:"10px 14px",borderRadius:10,border:"1px solid #2d2b45",background:"#0f0f1a",minHeight:"100vh",width:"100%",color:"#fff",position:"relative",overflow:"hidden"}}/>
+<input value={nameInput} onChange={e=>setNameInput(e.target.value)} placeholder="Your name"
+  style={{flex:1,padding:"10px 14px",borderRadius:10,border:"1px solid #2d2b45",background:"#0f0f1a",color:"#f1f5f9",fontSize:14,outline:"none",fontFamily:"inherit"}}/>
               <button onClick={submitScore} style={{padding:"10px 16px",borderRadius:10,border:"none",fontSize:14,fontWeight:700,cursor:"pointer",color:"#fff",background:`linear-gradient(135deg,${accent},${accentG})`,fontFamily:"inherit",whiteSpace:"nowrap"}}>Submit</button>
             </div>
           </div>
