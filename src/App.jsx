@@ -357,7 +357,28 @@ async function fetchInsight(q, idx) {
   const bonusPct  = (bonusTime/45)*100;
   const bonusUrgent = bonusTime <= 10;
 
-  const css = `
+const css = `
+    @keyframes neon-shift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    @keyframes float-a{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-30px) rotate(180deg)}}
+    @keyframes float-b{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(-120deg)}}
+    @keyframes float-c{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-25px) scale(1.15)}}
+    .neon-title{
+      background:linear-gradient(90deg,#a78bfa,#f472b6,#fb923c,#38bdf8,#a78bfa);
+      background-size:300% 300%;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:neon-shift 4s ease infinite;
+    }
+    .float-obj{position:fixed;pointer-events:none;z-index:0;opacity:0.07;}
+    .float-obj.a{width:180px;height:180px;border-radius:50%;background:#a78bfa;top:8%;left:5%;animation:float-a 8s ease-in-out infinite;}
+    .float-obj.b{width:120px;height:120px;border-radius:30%;background:#f472b6;top:60%;left:2%;animation:float-b 10s ease-in-out infinite;}
+    .float-obj.c{width:200px;height:200px;border-radius:50%;background:#38bdf8;top:20%;right:3%;animation:float-c 9s ease-in-out infinite;}
+    .float-obj.d{width:90px;height:90px;border-radius:40%;background:#fb923c;bottom:15%;right:5%;animation:float-a 11s ease-in-out infinite 1s;}
+    .float-obj.e{width:140px;height:140px;border-radius:50%;background:#34d399;bottom:30%;left:8%;animation:float-b 12s ease-in-out infinite 2s;}
     @keyframes flash-opt{0%,100%{opacity:1}50%{opacity:.3}}
     @keyframes slide-up{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
     @keyframes pop-in{0%{transform:scale(.88);opacity:0}100%{transform:scale(1);opacity:1}}
@@ -402,6 +423,7 @@ async function fetchInsight(q, idx) {
         ))}
       </div>
 
+      <div className="float-obj a"/><div className="float-obj b"/><div className="float-obj c"/><div className="float-obj d"/><div className="float-obj e"/>
       {/* music toggle */}
       <button onClick={toggleMusic} style={{
         position:"fixed",top:14,right:14,zIndex:200,
@@ -416,10 +438,10 @@ async function fetchInsight(q, idx) {
 
       {/* ── HOME ── */}
       {screen==="home" && (
-        <div className="se" style={{maxWidth:560,margin:"0 auto",padding:"2rem 1rem 4rem",position:"relative",zIndex:1}}>
+<div className="se" style={{maxWidth:680,margin:"0 auto",padding:"2rem 1.5rem 4rem",position:"relative",zIndex:1}}>
           <div style={{textAlign:"center",marginBottom:"2.5rem",paddingTop:"1rem"}}>
             <div style={{fontSize:13,fontWeight:700,letterSpacing:".2em",textTransform:"uppercase",color:"#818cf8",marginBottom:".5rem"}}>Welcome to</div>
-            <h1 style={{fontSize:32,fontWeight:900,margin:"0 0 .4rem",background:"linear-gradient(135deg,#a78bfa,#f472b6,#fb923c)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",lineHeight:1.15}}>Talent Acquisition<br/>Trivia</h1>
+        <h1 style={{fontSize:32,fontWeight:900,margin:"0 0 .4rem",background:"linear-gradient(135deg,#a78bfa,#f472b6,#fb923c)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",lineHeight:1.15}}>Talent Acquisition<br/>Trivia</h1>
             <p style={{fontSize:14,color:"#94a3b8",margin:"0 0 .1rem"}}>10 questions · 45 seconds each · TA professionals only</p>
           </div>
 
