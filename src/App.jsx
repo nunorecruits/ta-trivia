@@ -150,6 +150,27 @@ const SQ_SPOTS = [
   {x:315,y:240},{x:242,y:80},{x:168,y:268},{x:348,y:315},
 ];
 
+const Squirrel = ({style={}}) => (
+  <div style={{position:"relative",width:"100%",height:"100%",...style}}>
+    <div style={{position:"absolute",bottom:"5%",left:"-80%",width:"90%",height:"85%",background:"radial-gradient(ellipse,#6d28d9 60%,#4c1d95 100%)",borderRadius:"50% 80% 80% 20%",transform:"rotate(-25deg)",opacity:.9}}/>
+    <div style={{position:"absolute",bottom:"15%",left:"-60%",width:"70%",height:"65%",background:"radial-gradient(ellipse,#a78bfa 40%,#7c3aed 100%)",borderRadius:"50% 80% 80% 20%",transform:"rotate(-20deg)",opacity:.7}}/>
+    <div style={{position:"absolute",bottom:0,left:"15%",width:"65%",height:"55%",background:"linear-gradient(160deg,#7c3aed,#5b21b6)",borderRadius:"40% 40% 35% 35%"}}/>
+    <div style={{position:"absolute",bottom:"8%",left:"28%",width:"38%",height:"35%",background:"#a78bfa",borderRadius:"50%",opacity:.5}}/>
+    <div style={{position:"absolute",bottom:"48%",left:"18%",width:"58%",height:"52%",background:"linear-gradient(160deg,#7c3aed,#5b21b6)",borderRadius:"55% 55% 40% 40%"}}/>
+    <div style={{position:"absolute",bottom:"88%",left:"18%",width:"18%",height:"22%",background:"#6d28d9",borderRadius:"50% 50% 10% 40%",transform:"rotate(-15deg)"}}/>
+    <div style={{position:"absolute",bottom:"90%",left:"21%",width:"10%",height:"14%",background:"#c4b5fd",borderRadius:"50%",transform:"rotate(-15deg)"}}/>
+    <div style={{position:"absolute",bottom:"88%",left:"58%",width:"18%",height:"22%",background:"#6d28d9",borderRadius:"50% 50% 40% 10%",transform:"rotate(15deg)"}}/>
+    <div style={{position:"absolute",bottom:"90%",left:"61%",width:"10%",height:"14%",background:"#c4b5fd",borderRadius:"50%",transform:"rotate(15deg)"}}/>
+    <div style={{position:"absolute",bottom:"72%",left:"28%",width:"14%",height:"14%",background:"#1a0a2e",borderRadius:"50%"}}/>
+    <div style={{position:"absolute",bottom:"72%",left:"55%",width:"14%",height:"14%",background:"#1a0a2e",borderRadius:"50%"}}/>
+    <div style={{position:"absolute",bottom:"77%",left:"31%",width:"5%",height:"5%",background:"#fff",borderRadius:"50%"}}/>
+    <div style={{position:"absolute",bottom:"77%",left:"58%",width:"5%",height:"5%",background:"#fff",borderRadius:"50%"}}/>
+    <div style={{position:"absolute",bottom:"63%",left:"43%",width:"10%",height:"7%",background:"#c4b5fd",borderRadius:"50%"}}/>
+    <div style={{position:"absolute",bottom:"2%",left:"12%",width:"20%",height:"12%",background:"#6d28d9",borderRadius:"40% 40% 50% 50%"}}/>
+    <div style={{position:"absolute",bottom:"2%",left:"62%",width:"20%",height:"12%",background:"#6d28d9",borderRadius:"40% 40% 50% 50%"}}/>
+  </div>
+);
+
 export default function App() {
   const [screen,       setScreen]       = useState("home");
   const [cat,          setCat]          = useState(null);
@@ -414,16 +435,6 @@ const css = `
     .cat-card:hover{transform:translateY(-4px)}
   `;
 
-  const Squirrel = ({style={}}) => (
-    <div style={{position:"relative",width:"100%",height:"100%",...style}}>
-      <div style={{position:"absolute",bottom:0,left:"22%",width:"56%",height:"50%",background:"#7c3aed",borderRadius:"35% 35% 28% 28%"}}/>
-      <div style={{position:"absolute",bottom:"42%",left:"28%",width:"44%",height:"40%",background:"#7c3aed",borderRadius:"50% 50% 28% 28%"}}/>
-      <div style={{position:"absolute",bottom:"74%",left:"24%",width:"15%",height:"18%",background:"#6d28d9",borderRadius:"50% 50% 0 30%",transform:"rotate(-15deg)"}}/>
-      <div style={{position:"absolute",bottom:"74%",left:"58%",width:"15%",height:"18%",background:"#6d28d9",borderRadius:"50% 50% 30% 0",transform:"rotate(15deg)"}}/>
-      <div style={{position:"absolute",bottom:"12%",left:"-35%",width:"50%",height:"65%",background:"#6d28d9",borderRadius:"0 70% 70% 18%",opacity:.78,transform:"rotate(-18deg)"}}/>
-      <div style={{position:"absolute",bottom:"58%",left:"54%",width:"10%",height:"10%",background:"#1a0a2e",borderRadius:"50%"}}/>
-    </div>
-  );
 
   return (
     <div style={{fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",background:"#0f0f1a",minHeight:"100vh",color:"#fff",position:"relative",overflow:"hidden"}}>
@@ -675,25 +686,30 @@ background:musicOn?"#4c1d95":"#7c3aed",
           <div onClick={handleCanvasClick} style={{position:"relative",width:"100%",paddingTop:`${(CANVAS_H/CANVAS_W)*100}%`,borderRadius:20,overflow:"hidden",cursor:"crosshair",border:"2px solid #2d2b45",userSelect:"none"}}>
             <div style={{position:"absolute",inset:0}}>
               {/* bg */}
-              <div style={{position:"absolute",inset:0,background:"linear-gradient(180deg,#0f2a0f 0%,#1a3d1a 55%,#2d5a2d 100%)"}}/>
-              {/* distant trees */}
-              {[30,90,160,230,300,370,430,490].map((x,i)=>(
-                <div key={i} style={{position:"absolute",bottom:"42%",left:`${(x/CANVAS_W)*100}%`,width:`${(26+i%3*8)/CANVAS_W*100}%`,height:`${16+i%4*6}%`,background:"#0d1f0d",borderRadius:"40% 40% 0 0",opacity:.65}}/>
+              {/* space background */}
+              <div style={{position:"absolute",inset:0,background:"linear-gradient(180deg,#020008 0%,#0a0020 40%,#0d0535 100%)"}}/>
+              {/* nebula clouds */}
+              <div style={{position:"absolute",top:"5%",left:"5%",width:"40%",height:"35%",background:"radial-gradient(ellipse,rgba(124,58,237,0.15) 0%,transparent 70%)",borderRadius:"50%"}}/>
+              <div style={{position:"absolute",top:"10%",right:"8%",width:"35%",height:"30%",background:"radial-gradient(ellipse,rgba(56,189,248,0.12) 0%,transparent 70%)",borderRadius:"50%"}}/>
+              <div style={{position:"absolute",bottom:"20%",left:"15%",width:"45%",height:"40%",background:"radial-gradient(ellipse,rgba(244,114,182,0.1) 0%,transparent 70%)",borderRadius:"50%"}}/>
+              {/* stars */}
+              {Array.from({length:60},(_,i)=>(
+                <div key={i} style={{position:"absolute",left:`${(i*37+13)%95+2}%`,top:`${(i*53+7)%85+2}%`,width:i%8===0?3:i%4===0?2:1,height:i%8===0?3:i%4===0?2:1,borderRadius:"50%",background:i%3===0?"rgba(167,139,250,0.9)":i%2===0?"rgba(255,255,255,0.8)":"rgba(56,189,248,0.7)"}}/>
               ))}
-              {/* ground */}
-              <div style={{position:"absolute",bottom:0,left:0,right:0,height:"42%",background:"#1a3d1a"}}/>
-              <div style={{position:"absolute",bottom:"40%",left:0,right:0,height:"4%",background:"#2d5a2d",borderRadius:"50% 50% 0 0"}}/>
-              {/* trunks + canopy */}
-              {[60,180,320,450].map((x,i)=>(
-                <div key={i}>
-                  <div style={{position:"absolute",bottom:"38%",left:`${((x-8)/CANVAS_W)*100}%`,width:`${15/CANVAS_W*100}%`,height:"33%",background:"#3d2b1a"}}/>
-                  <div style={{position:"absolute",bottom:"66%",left:`${((x-34)/CANVAS_W)*100}%`,width:`${68/CANVAS_W*100}%`,height:"26%",background:"#1a4a1a",borderRadius:"50% 50% 20% 20%"}}/>
-                  <div style={{position:"absolute",bottom:"74%",left:`${((x-20)/CANVAS_W)*100}%`,width:`${42/CANVAS_W*100}%`,height:"18%",background:"#0f3a0f",borderRadius:"50% 50% 20% 20%"}}/>
-                </div>
-              ))}
-              {/* log */}
-              <div style={{position:"absolute",bottom:"41%",left:"38%",width:"12%",height:"4%",background:"#5c3d1e",borderRadius:4,border:"1px solid #3d2b1a"}}/>
-
+              {/* large planet - purple */}
+              <div style={{position:"absolute",top:"8%",right:"12%",width:"18%",paddingTop:"18%",borderRadius:"50%",background:"radial-gradient(circle at 35% 35%,#a78bfa,#4c1d95 60%,#1e0a4e)",boxShadow:"inset -4px -4px 12px rgba(0,0,0,0.5),0 0 20px rgba(124,58,237,0.3)"}}>
+                {/* planet rings */}
+                <div style={{position:"absolute",top:"40%",left:"-20%",width:"140%",height:"20%",border:"2px solid rgba(167,139,250,0.4)",borderRadius:"50%",transform:"rotateX(75deg)"}}/>
+              </div>
+              {/* small planet - blue */}
+              <div style={{position:"absolute",top:"55%",right:"6%",width:"9%",paddingTop:"9%",borderRadius:"50%",background:"radial-gradient(circle at 35% 35%,#7dd3fc,#0369a1 60%,#082f49)",boxShadow:"0 0 12px rgba(56,189,248,0.3)"}}/>
+              {/* moon */}
+              <div style={{position:"absolute",top:"15%",left:"10%",width:"7%",paddingTop:"7%",borderRadius:"50%",background:"radial-gradient(circle at 40% 35%,#e2e8f0,#94a3b8 60%,#475569)",boxShadow:"inset -2px -2px 6px rgba(0,0,0,0.4)"}}/>
+              {/* distant small planets */}
+              <div style={{position:"absolute",bottom:"30%",left:"4%",width:"5%",paddingTop:"5%",borderRadius:"50%",background:"radial-gradient(circle at 35% 35%,#fb923c,#c2410c)",boxShadow:"0 0 8px rgba(251,146,60,0.3)"}}/>
+              <div style={{position:"absolute",top:"35%",left:"22%",width:"3%",paddingTop:"3%",borderRadius:"50%",background:"radial-gradient(circle at 35% 35%,#4ade80,#166534)",boxShadow:"0 0 6px rgba(74,222,128,0.3)"}}/>
+              {/* shooting star */}
+              <div style={{position:"absolute",top:"22%",left:"30%",width:"12%",height:"1px",background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.8),transparent)",transform:"rotate(-25deg)"}}/>
               {/* DECOYS */}
               {DECOYS.map((d,i)=>{
                 const shapes = {
