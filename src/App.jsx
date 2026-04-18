@@ -496,10 +496,10 @@ background:musicOn?"#4c1d95":"#7c3aed",
           </div>
 
           {lb.length > 0 && (
-            <div style={{borderRadius:16,padding:"1.25rem",background:"#1e1b2e",border:"1px solid #2d2b45"}}>
+<div style={{borderRadius:16,padding:"1.25rem",background:"#1e1b2e",border:"1px solid #2d2b45",maxHeight:"384px",overflowY:"auto"}}>
               <p style={{fontSize:11,fontWeight:700,letterSpacing:".14em",textTransform:"uppercase",color:"#475569",margin:"0 0 12px"}}>Leaderboard</p>
               {lb.map((e,i) => (
-                <div key={i} style={{display:"flex",alignItems:"center",gap:12,padding:"8px 0",borderBottom:i<Math.min(lb.length,5)-1?"1px solid #2d2b45":"none"}}>
+                <div key={i} style={{display:"flex",alignItems:"center",gap:12,padding:"8px 0",borderBottom:i<lb.length-1?"1px solid #2d2b45":"none"}}>
                   <span style={{fontSize:15,minWidth:24,textAlign:"center"}}>{i===0?"🥇":i===1?"🥈":i===2?"🥉":`${i+1}.`}</span>
                   <div style={{flex:1}}>
                     <div style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>{e.name}</div>
