@@ -302,7 +302,8 @@ useEffect(() => {
   function startGame(catId) {
     setCat(catId); setQuestions(getQuestions(catId)); setQi(0); setScore(0);
     setStreak(0); setMaxStreak(0); setTimeLeft(45); setAnswered(false);
-    setSelected(null); setResults([]); setInsights({}); setStreakMsg(""); setOptAnim(null);
+setResults([]); setInsights({}); setStreakMsg(""); setOptAnim(null); setBonusUsed(false);
+      bonusUsedRef.current = false;
     setScreen("game");
   }
 
@@ -368,7 +369,11 @@ async function fetchInsight(q, idx) {
   setLoadingIns(null);
 }
 
+const [bonusUsed, setBonusUsed] = useState(false);
+  const bonusUsedRef = useRef(false);
+
   function startBonus() {
+    if (bonusUsedRef.current) return;
     bonusPos.current = SQ_SPOTS[Math.floor(Math.random()*SQ_SPOTS.length)];
     setBonusTime(45); setBonusFound(false); setBonusExpired(false);
     setScreen("bonus");
@@ -384,7 +389,9 @@ async function fetchInsight(q, idx) {
     if (dist < SQ_SIZE) {
       clearInterval(bonusRef.current);
       playFound();
-      setBonusFound(true);
+setBonusFound(true);
+      setBonusUsed(true);
+      bonusUsedRef.current = true;
       setScore(s => s+500);
     }
   }
@@ -618,8 +625,8 @@ background:musicOn?"#4c1d95":"#7c3aed",
           </div>
 
           {/* BONUS TEASER */}
-          <div onClick={startBonus} onMouseEnter={e=>e.currentTarget.style.transform="translateY(-2px)"} onMouseLeave={e=>e.currentTarget.style.transform="none"}
-            style={{borderRadius:16,padding:"1.1rem 1.25rem",background:"linear-gradient(135deg,#4a1d96,#6d28d9)",border:"1px solid #7c3aed55",cursor:"pointer",marginBottom:"1.25rem",display:"flex",alignItems:"center",gap:14,transition:"transform .15s"}}>
+<div onClick={startBonus} onMouseEnter={e=>!bonusUsed&&(e.currentTarget.style.transform="translateY(-2px)")} onMouseLeave={e=>e.currentTarget.style.transform="none"}
+            style={{borderRadius:16,padding:"1.1rem 1.25rem",background:bonusUsed?"#1e1b2e":"linear-gradient(135deg,#4a1d96,#6d28d9)",border:"1px solid #7c3aed55",cursor:bonusUsed?"default":"pointer",marginBottom:"1.25rem",display:"flex",alignItems:"center",gap:14,transition:"transform .15s",opacity:bonusUsed?.5:1}}>
             <div style={{fontSize:30,lineHeight:1,flexShrink:0}}>🐿️</div>
             <div>
               <div style={{fontSize:14,fontWeight:800,color:"#e9d5ff",marginBottom:2}}>Bonus Round — Find the Purple Squirrel</div>
@@ -756,8 +763,8 @@ background:musicOn?"#4c1d95":"#7c3aed",
             </div>
           </div>
 
-          {(bonusFound||bonusExpired) && (
-            <button onClick={()=>setScreen("result")} style={{marginTop:"1.25rem",width:"100%",padding:"13px",borderRadius:14,border:"none",fontSize:15,fontWeight:800,cursor:"pointer",color:"#fff",background:"linear-gradient(135deg,#7C3AED,#BE185D)",fontFamily:"inherit"}}>
+      {(bonusFound||bonusExpired) && (
+            <button onClick={()=>{ setBonusUsed(true); setScreen("result"); }} style={{marginTop:"1.25rem",width:"100%",padding:"13px",borderRadius:14,border:"none",fontSize:15,fontWeight:800,cursor:"pointer",color:"#fff",background:"linear-gradient(135deg,#7C3AED,#BE185D)",fontFamily:"inherit"}}>
               Back to results →
             </button>
           )}
