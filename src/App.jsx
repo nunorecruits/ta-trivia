@@ -781,7 +781,7 @@ background:musicOn?"#4c1d95":"#7c3aed",
             <div style={{fontSize:26,fontWeight:900,color:"#fff"}}>{playerName}</div>
             <div style={{fontSize:13,color:"rgba(255,255,255,.6)"}}>{getTitle(score)} · {score.toLocaleString()} pts</div>
           </div>
-<div style={{borderRadius:16,padding:"1.25rem",background:"#1e1b2e",border:"1px solid #2d2b45",marginBottom:"1rem",maxHeight:"480px",overflowY:"auto"}}>
+<div style={{borderRadius:16,padding:"1.25rem",background:"#1e1b2e",border:"1px solid #2d2b45",marginBottom:"1rem",maxHeight:"384px",overflowY:"auto"}}>
             {lb.map((e,i)=>(
               <div key={i} style={{display:"flex",alignItems:"center",gap:12,padding:"10px 0",borderBottom:i<lb.length-1?"1px solid #2d2b45":"none"}}>
                 <span style={{fontSize:17,minWidth:28,textAlign:"center"}}>{i===0?"🥇":i===1?"🥈":i===2?"🥉":<span style={{fontSize:13,color:"#475569"}}>{i+1}</span>}</span>
